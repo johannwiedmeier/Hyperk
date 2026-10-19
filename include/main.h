@@ -60,3 +60,9 @@ namespace SerialPort {
 namespace Leds {
     void applyLedConfig();
 };
+
+namespace WifiRecovery {
+    void arm();
+    void suspend();
+    void processEvents(bool allowed);
+};

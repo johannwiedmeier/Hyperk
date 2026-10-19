@@ -68,6 +68,7 @@ namespace {
 
     void startAP(bool scheduleAutomaticRestartToReconnect) {
         constexpr uint16_t DNS_PORT = 53;
+        WifiRecovery::suspend();
         inAPMode = true;
         WiFi.mode(WIFI_AP);
         WiFi.softAP(APP_NAME "-Setup");    
@@ -155,6 +156,7 @@ void setup() {
         else
         {
             Log::SERIAL_LOG("Connected → ", WiFi.localIP());
+            WifiRecovery::arm();
         }
     }
 
@@ -191,6 +193,7 @@ void loop()
     }
 
     Manager::processEvents();
+    WifiRecovery::processEvents(!inAPMode && !hasEthernet);
 
     // external libraries
     if (inAPMode)
